@@ -35,21 +35,23 @@ export default function ViewSecret() {
   const [fileDownloaded, setFileDownloaded] = useState(false);
   const [copied, setCopied] = useState(false);
 
+  const cleanToken = (token || '').trim().replace(/\/$/, '');
+
   // 1. Initial Pre-flight Check on Load
   useEffect(() => {
     let isMounted = true;
 
     const checkAvailability = async () => {
       try {
-        if (!token || token.length !== 64) {
+        if (!cleanToken || cleanToken.length !== 64) {
           throw new Error('Invalid or malformed one-time link.');
         }
 
         if (isFileType) {
-          const data = await apiService.getFileInfo(token);
+          const data = await apiService.getFileInfo(cleanToken);
           if (isMounted) setItemInfo(data);
         } else {
-          const data = await apiService.getSecretInfo(token);
+          const data = await apiService.getSecretInfo(cleanToken);
           if (isMounted) setItemInfo(data);
         }
       } catch (err) {
@@ -70,7 +72,7 @@ export default function ViewSecret() {
     return () => {
       isMounted = false;
     };
-  }, [token, isFileType]);
+  }, [cleanToken, isFileType]);
 
   // Helper format file size
   const formatFileSize = (bytes) => {
@@ -85,7 +87,7 @@ export default function ViewSecret() {
   const handleRevealSecret = async () => {
     try {
       setRevealing(true);
-      const data = await apiService.claimSecret(token);
+      const data = await apiService.claimSecret(cleanToken);
       setRevealedMessage(data.message);
       toast.info('Secret revealed! Server copy was permanently destroyed.');
     } catch (err) {
@@ -103,7 +105,7 @@ export default function ViewSecret() {
   const handleDownloadFile = async () => {
     try {
       setRevealing(true);
-      const claimData = await apiService.claimFile(token);
+      const claimData = await apiService.claimFile(cleanToken);
 
       // Trigger browser download via stream URL
       const downloadUrl = apiService.getDownloadUrl(claimData.claimTicket);

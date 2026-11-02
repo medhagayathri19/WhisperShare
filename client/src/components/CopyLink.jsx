@@ -75,12 +75,19 @@ export default function CopyLink({ link, expiresAt, type = 'secret', onReset }) 
       </div>
 
       {/* Warning Notice */}
-      <div className="warning-banner" style={{ marginBottom: '1.5rem' }}>
+      <div className="warning-banner" style={{ marginBottom: '1rem' }}>
         <AlertTriangle size={20} />
         <div>
           <strong>Burn-on-Read Warning:</strong> This link can only be accessed once. Do not test-open this link yourself, or it will be permanently deleted and the intended recipient will not be able to retrieve it!
         </div>
       </div>
+
+      {/* Network Sharing Notice when on localhost */}
+      {(typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) && (
+        <div style={{ marginBottom: '1.25rem', fontSize: '0.82rem', color: '#7dd3fc', background: 'rgba(6, 182, 212, 0.08)', padding: '0.65rem 0.9rem', borderRadius: '8px', border: '1px solid rgba(6, 182, 212, 0.25)', lineHeight: 1.5 }}>
+          💡 <strong>Sharing to a phone or another device on your Wi-Fi?</strong> The link above uses <code>localhost</code> (only reachable on this computer). Access WhisperShare via your computer's Wi-Fi IP address (e.g., <code>http://192.168.0.120:5173</code>) so generated links can be opened by anyone on your network.
+        </div>
+      )}
 
       {/* Actions */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>

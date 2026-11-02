@@ -13,8 +13,8 @@ async function startServer() {
     // Start background cleanup cron job
     initCleanupCron();
 
-    // Start Express listening
-    const server = app.listen(PORT, () => {
+    // Start Express listening on all network interfaces
+    const server = app.listen(PORT, '0.0.0.0', () => {
       console.log(`\n======================================================`);
       console.log(`  WhisperShare Backend Service Running on Port ${PORT}`);
       console.log(`  Health Check: http://localhost:${PORT}/api/health`);

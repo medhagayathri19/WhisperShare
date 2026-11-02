@@ -4,4 +4,8 @@ import { defineConfig } from 'vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  server: {
+    host: true, // Listen on all network interfaces (0.0.0.0) so other devices on Wi-Fi can connect
+    port: 5173,
+  },
 })
