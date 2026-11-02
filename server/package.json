@@ -1,0 +1,31 @@
+{
+  "name": "whispershare-server",
+  "version": "1.0.0",
+  "description": "Secure One-Time File and Secret Sharing Backend",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "mongoose": "^8.9.5",
+    "multer": "^1.4.5-lts.1",
+    "node-cron": "^3.0.3"
+  },
+  "keywords": [
+    "security",
+    "burn-on-read",
+    "secret-sharing",
+    "file-sharing",
+    "encryption",
+    "aes-256-gcm"
+  ],
+  "author": "WhisperShare Team",
+  "license": "MIT"
+}

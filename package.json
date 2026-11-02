@@ -1,0 +1,23 @@
+{
+  "name": "whispershare-workspace",
+  "version": "1.0.0",
+  "description": "WhisperShare - Ephemeral, Burn-on-Read Secret and File Sharing Application",
+  "private": true,
+  "scripts": {
+    "dev:server": "npm run dev --prefix server",
+    "dev:client": "npm run dev --prefix client",
+    "build:client": "npm run build --prefix client",
+    "lint:client": "npm run lint --prefix client",
+    "install:all": "npm install --prefix server && npm install --prefix client"
+  },
+  "keywords": [
+    "burn-on-read",
+    "ephemeral",
+    "encryption",
+    "aes-256-gcm",
+    "file-sharing",
+    "privacy"
+  ],
+  "author": "WhisperShare Team",
+  "license": "MIT"
+}
