@@ -1,18 +1,7 @@
 import axios from 'axios';
 
-// Connect to backend dynamically based on current host (supports localhost, local network IP, or deployed URL)
-const getApiBaseUrl = () => {
-  if (import.meta.env.VITE_API_URL) {
-    return import.meta.env.VITE_API_URL;
-  }
-  if (typeof window !== 'undefined' && window.location.hostname) {
-    const port = '5000';
-    return `${window.location.protocol}//${window.location.hostname}:${port}/api`;
-  }
-  return 'http://localhost:5000/api';
-};
-
-const API_BASE_URL = getApiBaseUrl();
+// Connect to backend via relative /api (proxied by Vite in dev, or custom VITE_API_URL if configured)
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
