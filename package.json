@@ -4,6 +4,7 @@
   "description": "WhisperShare - Ephemeral, Burn-on-Read Secret and File Sharing Application",
   "private": true,
   "scripts": {
+    "dev": "concurrently -n \"server,client\" -c \"magenta,cyan\" \"npm run dev:server\" \"npm run dev:client\"",
     "dev:server": "npm run dev --prefix server",
     "dev:client": "npm run dev --prefix client",
     "build:client": "npm run build --prefix client",
@@ -19,6 +20,8 @@
     "privacy"
   ],
   "author": "WhisperShare Team",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^10.0.6"
+  }
 }
-
