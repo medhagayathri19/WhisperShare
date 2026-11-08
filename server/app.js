@@ -3,6 +3,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const mongoose = require('mongoose');
+const path = require('path');
 
 const secretRoutes = require('./routes/secretRoutes');
 const fileRoutes = require('./routes/fileRoutes');
@@ -91,6 +92,19 @@ app.get('/api/health', (req, res) => {
 // Mount Feature Routes
 app.use('/api/secrets', secretRoutes);
 app.use('/api/files', fileRoutes);
+
+// Serve Frontend client build in production
+if (process.env.NODE_ENV === 'production') {
+  const clientDistPath = path.join(__dirname, '../client/dist');
+  app.use(express.static(clientDistPath));
+
+  app.get('*', (req, res, next) => {
+    if (req.originalUrl.startsWith('/api')) {
+      return next();
+    }
+    res.sendFile(path.join(clientDistPath, 'index.html'));
+  });
+}
 
 // Error Handling
 app.use(notFoundHandler);
